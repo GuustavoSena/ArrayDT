@@ -90,7 +90,7 @@ T Array<T>::Remove(int index) {
 
 template<class T>
 void Array<T>::swap(T* x, T* y) {
-	int temp;
+	T temp;
 	temp = *x;
 	*x = *y;
 	*y = temp;
@@ -146,7 +146,7 @@ void Array<T>::Set(int index, T x) {
 
 template<class T>
 T Array<T>::Max() {
-	int max = A[0];
+	T max = A[0];
 	for (int i = 1; i < length; i++) {
 		if (A[i] > max) {
 			max = A[i];
@@ -157,7 +157,7 @@ T Array<T>::Max() {
 
 template<class T>
 T Array<T>::Min() {
-	int min = A[0];
+	T min = A[0];
 	for (int i = 1; i < length; i++) {
 		if (A[i] < min) {
 			min = A[i];
@@ -168,7 +168,7 @@ T Array<T>::Min() {
 
 template<class T>
 T Array<T>::Sum() {
-	int total = 0;
+	T total = 0;
 	for (int i = 0; i < length; i++) {
 		total += A[i];
 	}
@@ -177,7 +177,7 @@ T Array<T>::Sum() {
 
 template<class T>
 double Array<T>::Avg() {
-	return ((double)Sum() / (length));
+	return ((T)Sum() / (length));
 }
 
 template<class T>
@@ -203,7 +203,7 @@ void Array<T>::InsertSort(T x) {
 
 template<class T>
 int Array<T>::isSorted() {
-	for (int i = 0; i < length - 2; i++) {
+	for (int i = 0; i < length - 1; i++) {
 		if (A[i] > A[i + 1]) {
 			return 0;
 		}
@@ -331,8 +331,9 @@ Array<T>* Array<T>::Difference(Array<T> arr2) {
 
 
 template<class T>
-void manipulateArrays(Array<T> arr) {
-	int index, x, choice;
+void manipulateArrays(Array<T>& arr) {
+	T x;
+	int index, choice;
 	do {
 		std::cout << "What do you want to do?" << std::endl;
 		std::cout << "1. Display Array" << std::endl;
@@ -340,17 +341,16 @@ void manipulateArrays(Array<T> arr) {
 		std::cout << "3. Insert a number on Array" << std::endl;
 		std::cout << "4. Remove a number of the Array" << std::endl;
 		std::cout << "5. Find a number on Array" << std::endl;
-		std::cout << "6. Insert a number on Array" << std::endl;
-		std::cout << "7. Get a number of the Array" << std::endl;
-		std::cout << "8. Set a number on Array" << std::endl;
-		std::cout << "9. Find the max number of the Array" << std::endl;
-		std::cout << "10. Find the min number of the Array" << std::endl;
-		std::cout << "11. Find the numbers's sum of the Array" << std::endl;
-		std::cout << "12. Find the number's avg of the Array" << std::endl;
-		std::cout << "13. Reverse the Array" << std::endl;
-		std::cout << "14. Check if Array is sorted" << std::endl;
-		std::cout << "15. Insert a number on a sorted Array" << std::endl;
-		std::cout << "16. Rearrange the Array" << std::endl;
+		std::cout << "6. Get a number of the Array" << std::endl;
+		std::cout << "7. Set a number on Array" << std::endl;
+		std::cout << "8. Find the max number of the Array" << std::endl;
+		std::cout << "9. Find the min number of the Array" << std::endl;
+		std::cout << "10. Find the numbers's sum of the Array" << std::endl;
+		std::cout << "11. Find the number's avg of the Array" << std::endl;
+		std::cout << "12. Reverse the Array" << std::endl;
+		std::cout << "13. Check if Array is sorted" << std::endl;
+		std::cout << "14. Insert a number on a sorted Array" << std::endl;
+		std::cout << "15. Rearrange the Array" << std::endl;
 		std::cin >> choice;
 
 		switch (choice) {
@@ -363,8 +363,10 @@ void manipulateArrays(Array<T> arr) {
 			arr.Append(x);
 			break;
 		case 3:
-			std::cout << "Which number do you want to insert and on which index?" << std::endl;
-			std::cin >> x >> index;
+			std::cout << "Which number do you want to insert?" << std::endl;
+			std::cin >> x;
+			std::cout << "Which index do you want to insert the number?" << std::endl;
+			std::cin >> index;
 			arr.Insert(index, x);
 			break;
 		case 4:
@@ -384,43 +386,81 @@ void manipulateArrays(Array<T> arr) {
 			}
 			break;
 		case 6:
-
+			std::cout << "From which index do you want to get a number?" << std::endl;
+			std::cin >> index;
+			x = arr.Get(index);
+			if (x == -1) {
+				std::cout << "The index is invalid" << std::endl;
+			}
+			else {
+				std::cout << "The number is " << x << std::endl;
+			}
 			break;
 		case 7:
-
+			std::cout << "Which index do you want to change?" << std::endl;
+			std::cin >> index;
+			std::cout << "Which number do you want to put in?" << std::endl;
+			std::cin >> x;
+			arr.Set(index, x);
 			break;
 		case 8:
-
+			if (arr.Get(0) == -1) {
+				std::cout << "There is no item on Array" << std::endl;
+			}
+			else {
+				std::cout << "The max value on Array is " << arr.Max() << std::endl;
+			}
 			break;
 		case 9:
-
+			if (arr.Get(0) == -1) {
+				std::cout << "There is no item on Array" << std::endl;
+			}
+			else {
+				std::cout << "The min value on Array is " << arr.Min() << std::endl;
+			}
 			break;
 		case 10:
-
+			if (arr.Get(0) == -1) {
+				std::cout << "There is no item on Array" << std::endl;
+			}
+			else {
+				std::cout << "The sum is " << arr.Sum() << std::endl;
+			}
 			break;
 		case 11:
-
+			if (arr.Get(0) == -1) {
+				std::cout << "There is no item on Array" << std::endl;
+			}
+			else {
+				std::cout << "The avg is " << arr.Avg() << std::endl;
+			}
 			break;
 		case 12:
-
+			arr.Reverse();
+			std::cout << "Array was reversed" << std::endl;
 			break;
 		case 13:
-
+			if (arr.isSorted() == 1) {
+				std::cout << "Array is sorted" << std::endl;
+			}
+			else {
+				std::cout << "Array isn't sorted" << std::endl;
+			}
 			break;
 		case 14:
-
+			std::cout << "Which number do you want to insert on a sorted Array?" << std::endl;
+			std::cin >> x;
+			arr.InsertSort(x);
 			break;
 		case 15:
-
-			break;
-		case 16:
-
+			arr.Rearrange();
+			std::cout << "Array was rearranged" << std::endl;
 			break;
 		default:
 			std::cout << "Valor indefinido" << std::endl;
 			break;
 		}
-	} while (choice >= 1 && choice <= 16);
+	} while (choice >= 1 && choice <= 15);
 }
 
 
@@ -440,8 +480,8 @@ int main() {
 			manipulateArrays(arr1);
 		}
 		else if (type == 2) {
-			Array<double> arr1(sz);
-
+			Array<double> arr2(sz);
+			manipulateArrays(arr2);
 		}
 		else {
 			std::cout << "Valor indefinido" << std::endl;
